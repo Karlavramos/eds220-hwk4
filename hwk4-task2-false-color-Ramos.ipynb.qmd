@@ -1,0 +1,91 @@
+
+#### 2. Fire perimeter data exploration
+
+Explore the fire perimeter data and write a brief summary of the information you obtained from the preliminary exploration. Your summary should include, at least, the CRS of the data and whether this is projected or geographic. 
+
+#### 3. NetCDF data import and exploration
+
+a. Import the Landsat data using `xr.open_dataset()`.
+
+
+b. Explore the data and write a brief summary of the information you obtained from the preliminary exploration. Your summary should include a description of the data's variables, dimensions, and coordinates.
+
+#### 4. Restoring geospatial information
+
+a. Use `rio.crs` to print the CRS of this dataset. Is this a geospatial object?
+
+b. You may have noticed in section 3 that the geospatial information for this dataset is stored in the variable `spatial_ref`. Print the CRS by accessing the `spatial_ref.crs_wkt` attribute of the dataset.
+
+c. Recover the geospatial information by using [`rio.write_crs()`](https://vylor.github.io/rioxarray/stable/getting_started/crs_management.html#Setting-the-CRS) and the spatial reference information from part b. 
+
+d. Print the CRS of the updated dataset. 
+
+#### 5. True color image
+
+a. Without creating any new variables: 
+  - select the red, green, and blue variables (in that order) of the `xarray.Dataset` holding the Landsat data, 
+  - convert it to an `xarray.DataArray` using the [`to_dataarray()`](https://docs.xarray.dev/en/stable/generated/xarray.Dataset.to_dataarray.html) method, and then 
+  - use `.plot.imshow()` to create an RGB image with the data. 
+There will be a warning; that's ok.
+
+b. Adjust the scale used for plotting the bands to get a true color image. 
+HINT: [Check the `robust` parameter](https://docs.xarray.dev/en/stable/generated/xarray.plot.imshow.html). 
+
+<!-- The issue here is the clouds: their RGB values are outliers and cause the other values to be squished when plotting.  -->
+
+c. To resolve the other warning, identify which bands have `nan` values. HINT: There are many ways of doing so. One option is to use [`numpy.isnan()`](https://numpy.org/devdocs/reference/generated/numpy.isnan.html).
+
+d. Use the [`.fillna()`](https://docs.xarray.dev/en/latest/generated/xarray.Dataset.fillna.html) method for `xarray.Dataset`s to replace any `nan` values in the Landsat data with zero. 
+
+e. Create a new true color image that gets plotted without warnings. 
+
+f. In a markdown cell write a brief explanation comparing the outputs for parts (a) and (e). 
+
+#### 6. False color image
+Without creating any new variables, create a false color image by plotting the shortwave infrared (swir22), near-infrared, and red variables (in that order). 
+
+#### 7. Map
+a. Create a map showing the shortwave infrared/near-infrared/red false color image together with both fire _perimeters_. Customize it appropriately including, at least, an informative title and legend. You may also want to include text on the map to identify which fire is which.
+
+b. Write a figure description for the map including a brief explanation of how false color imagery is being used.
+
+:::{.callout-caution appearance="minimal"}
+The rest of the sections are about updating and cleaning your notebooks and repository. **This is hugely important!** By maintaining clean, well-structured repositories and notebooks, you’re not only showcasing your technical skills but also building a portfolio that reflects your professionalism, attention to detail, and ability to collaborate effectively with others.
+
+Here is an [example of an organized repository and notebook](https://github.com/carmengg/eds220-oil-spills-sample-repo) based on the oil spills task from homework 3. 
+:::
+
+#### 8. Clean your notebooks
+
+The target audience for your notebooks is a fellow EDS 220 student who is just learning about wrangling raster data using Python. 
+
+- Add enough and appropriate comments to explain your code.
+- Add enough and appropriate markdown cells to explain the procedures you are using and their output.
+- The first cell in the notebook must be a markdown cell including: 
+  - [ ] Title
+  - [ ] Author
+  - [ ] Link to GitHub repository containing the notebook (for grading purposes)
+- Each notebook must include an "About" section with the following subsections: 
+    - [ ] Purpose: what is this notebook about?
+    - [ ] Highlights: List of highlights of analysis (3 or 4 highlights). What do you consider to be the most important aspects of this coding exercise?
+    - [ ] About the data: Datasets description
+    - [ ] References: Formal references to datasets. You can use the APA style as outlined [here](https://library.cumc.columbia.edu/insight/citing-data-sources).
+
+The rest of your notebook should be organized into logical subsections (indicated through markdown headers) for the analysis and visualization you are performing. The subsections should easily guide the reader through the analysis.
+
+#### 9. Update your repository {#sec-repo-instructions}
+
+Update your repository's README with (at least) the following (based on the [MEDS README guidelines](https://ucsb-meds.github.io/README-guidelines/)):
+
+- [ ] **Title.** Short, but descriptive title.
+- [ ] **"About" section.** A brief explanation of the repository’s purpose.
+  Paragraphs or a bulleted list are both acceptable options. 
+  You may include an image or logo that represents the project.
+- [ ] **"Repository Structure" section.** A concise description of what’s housed in the repository.
+  This includes information about the repository structure or file organization.
+- [ ] **"Data" section.** Details regarding data access. Any necessary information on where data lives (e.g. is it housed in the repo, on a server, in a library / package etc.) and how to access it in order to run the code. 
+- [ ] **"References" section.** In an appropriate, consistent format, including links, provide a reference to the course and any other sources that supported the development of the repository. **Include formal references to the datasets.** You can use the APA style to cite data sources as outlined [here](https://library.cumc.columbia.edu/insight/citing-data-sources).
+
+:::{.callout-warning appearance="minimal"}
+Ready to submit your answers? Make sure your submission follows the checklist at the top of the assignment! 
+:::
